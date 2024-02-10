@@ -5,16 +5,18 @@ import MapIntegration from "./components/commons/MapIntegration";
 import Filters from "./components/commons/Filters";
 import EmbedMap from "./components/commons/EmbedMap";
 import GlobalSearch from "./components/commons/GlobalSearch";
+import Desktop2 from "./pages/Desktop2/Desktop2";
 
 export default function Home() {
   return (
     <main>
       {/* <MapIntegration /> */}
       {/* <EmbedMap /> */}
-      <Filters />
+      {/* <Filters />
       <ListCard />
-      <CategoryIcon />
+      <CategoryIcon /> */}
       {/* <GlobalSearch /> */}
+      <Desktop2 />
     </main>
   );
 }
