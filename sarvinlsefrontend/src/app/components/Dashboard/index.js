@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <div style={{ width: "100vw" }}>
       <NavBar />
-      <MapIntegration />
+      <MapIntegration h={"40vh"} />
       <div
         style={{
           display: "flex",

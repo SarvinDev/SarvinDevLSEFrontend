@@ -6,6 +6,7 @@ const nextConfig = {
       "media.istockphoto.com",
       "img.freepik.com",
       "t3.ftcdn.net",
+      "food.fnr.sndimg.com",
     ], // regarding Creater Card testing Image
   },
   webpack(config) {
