@@ -34,7 +34,7 @@ const LocationSearch = () => {
           <input
             type="search"
             id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-[#F3F9FB] focus:ring-blue-500 focus:border-blue-500 dark:bg-[#F3F9FB] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:gray-500 dark:focus:gray-500"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-[#F3F9FB] focus:ring-blue-500 focus:border-blue-500 dark:bg-[#F3F9FB] dark:border-gray-200 dark:placeholder-gray-400 dark:text-white dark:focus:gray-500 dark:focus:gray-500"
             placeholder="Locations"
             required
           />

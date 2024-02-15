@@ -6,14 +6,9 @@ import SearchBar from "../SearchBar";
 
 const GlobalSearch = () => {
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ flex: 3, marginRight: 20 }}>
-        {" "}
-        <SearchBar />
-      </div>
-      <div style={{ flex: 1 }}>
-        <LocationSearch />
-      </div>
+    <div>
+      {" "}
+      <SearchBar />
     </div>
   );
 };
