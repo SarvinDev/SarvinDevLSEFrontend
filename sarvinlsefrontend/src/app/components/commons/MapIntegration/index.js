@@ -12,14 +12,19 @@ import MapCards from "../MapCards/CreaterCard";
 const libraries = ["places"];
 const mapContainerStyle = {
   width: "100vw",
-  height: "40vh",
+  height: "20vh",
 };
 const center = {
   lat: 18.5214,
   lng: 73.8446, // default longitude
 };
 
-const MapIntegration = () => {
+const MapIntegration = ({ h }) => {
+  const mapContainerStyle = {
+    width: "100vw",
+    height: h,
+  };
+
   const [map, setMap] = useState(null);
   const [mapRef, setMapRef] = useState();
   const [isOpen, setIsOpen] = useState(false);
