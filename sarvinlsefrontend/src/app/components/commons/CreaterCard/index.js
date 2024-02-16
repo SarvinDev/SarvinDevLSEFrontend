@@ -1,11 +1,12 @@
+import React from "react";
 import Image from "next/image";
-import { FaTwitter, FaInstagram, FaPinterestP } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa6";
-export default function CreaterCard({
+import { FaTwitter, FaInstagram, FaPinterestP, FaFacebookF } from "react-icons/fa";
+
+const CreaterCard = ({
   name = "Naman Agarwal",
   profession = "CEO and Founder",
   img = "https://tse1.mm.bing.net/th?id=OIP.K7lG3005eY-tEHwlxf61qgHaFx&pid=Api&P=0&w=300&h=300",
-}) {
+}) => {
   return (
     <div className="max-w-sm bg-black relative group">
       <a
@@ -39,4 +40,6 @@ export default function CreaterCard({
       </div>
     </div>
   );
-}
+};
+
+export default CreaterCard;
