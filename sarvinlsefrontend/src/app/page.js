@@ -8,7 +8,6 @@ import NavBar from "./components/commons/Navbar";
 import SignIn from "./components/SignIn";
 import Verification from "./components/Verification";
 import OTPScreens from "./components/OTPScreen";
-
 export default function Home() {
   return (
     <main

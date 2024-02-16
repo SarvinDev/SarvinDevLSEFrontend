@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import CreaterCard from "../../commons/CreaterCard/CreaterCard";
+import CreaterCard from "../../commons/CreaterCard";
 const RisingCreators = ({ text = null, children }) => {
   return (
     <div style={{ margin: "0px 20px" }}>
