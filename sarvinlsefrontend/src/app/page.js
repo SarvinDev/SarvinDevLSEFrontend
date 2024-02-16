@@ -8,7 +8,6 @@ import NavBar from "./components/commons/Navbar";
 import SignIn from "./components/SignIn";
 import Verification from "./components/Verification";
 import OTPScreens from "./components/OTPScreen";
-import Desktop3 from "./components/Desktop3Screen"
 export default function Home() {
   return (
     <main
@@ -21,8 +20,7 @@ export default function Home() {
       {/* <Dashboard /> */}
       {/* <SignIn /> */}
       {/* <Verification /> */}
-      {/* <OTPScreens /> */}
-      <Desktop3 />
+      <OTPScreens />
     </main>
   );
 }
