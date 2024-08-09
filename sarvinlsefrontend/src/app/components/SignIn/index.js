@@ -369,7 +369,7 @@ const SignIn = () => {
                     SignUp as Influencer
                   </Link>
                   <Link
-                    href="#"
+                    href="/sign-up-brand"
                     class="font-semibold leading-6 text-indigo-500 hover:text-indigo-700"
                   >
                     SignUp as Business
