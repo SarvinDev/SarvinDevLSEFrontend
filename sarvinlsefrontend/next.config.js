@@ -22,6 +22,7 @@ const nextConfig = {
       "ksbrickey.files.wordpress.com",
       "www.bizadmark.com",
       "cdn.icon-icons.com",
+      "upload.wikimedia.org",
     ], // regarding Creater Card testing Image
   },
   webpack(config) {
