@@ -7,11 +7,6 @@ import axios from "axios";
 
 const libraries = ["places"];
 
-// const center = {
-//   lat: 28.744591075844735,
-//   lng: 77.19285650657223, // default longitude
-// };
-
 const MapIntegration = ({ isTabletOrMobile }) => {
   const [map, setMap] = useState(null);
   const [mapRef, setMapRef] = useState();
@@ -81,49 +76,49 @@ const MapIntegration = ({ isTabletOrMobile }) => {
   // ];
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-          setCenter({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => {
-          setCenter({
-            lat: 28.744591075844735,
-            lng: 77.19285650657223,
-          });
-          console.error("Error getting location:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("https://sarvindevbackend.onrender.com/api/brand", {
-        params: {
-          lat: center.lat,
-          lon: center.lng,
-          radius: 4,
-        },
-      })
-      .then((response) => {
+    const fetchBrandData = async (lat, lng) => {
+      try {
+        const response = await axios.get("https://sarvindevbackend.onrender.com/api/brand", {
+          params: {
+            lat: lat,
+            lon: lng,
+            radius: 4,
+          },
+        });
+  
         const fetchedMarkers = response.data.brandData.data.map((brand) => ({
           address: <MapCards name={brand.brand_name} img={brand.image_link} />,
           lat: brand.location.coordinates[1],
           lng: brand.location.coordinates[0],
         }));
+        
         setMarkers(fetchedMarkers);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching brand data:", error);
-      });
+      }
+    };
+  
+    const handleLocationSuccess = (position) => {
+      const { latitude, longitude } = position.coords;
+      setCenter({ lat: latitude, lng: longitude });
+      fetchBrandData(latitude, longitude);
+    };
+  
+    const handleLocationError = () => {
+      const defaultLocation = { lat: 28.744591075844735, lng: 77.19285650657223 };
+      setCenter(defaultLocation);
+      fetchBrandData(defaultLocation.lat, defaultLocation.lng);
+    };
+  
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      handleLocationError();
+    }
   }, []);
+  
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAP34ET_j5EOqfroU_y7izR6IAcrPt-NhY",
     libraries,
@@ -156,13 +151,16 @@ const MapIntegration = ({ isTabletOrMobile }) => {
     setInfoWindowData({ id, address });
     setIsOpen(true);
   };
-
+  
   return (
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={10.8}
-        center={center}
+        zoom={14}
+        center={center || {
+          lat: 28.744591075844735,
+          lng: 77.19285650657223,
+        }}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
