@@ -1,9 +1,53 @@
 import React, { useState } from "react";
 import CreateAccount from "./CreateAccount";
 import ConnectBusiness from "./ConnectBusiness";
+import axios from "axios";
 
 const SignUpBrand = () => {
   const [goToNext, setGoToNext] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [brandName, setBrandName] = useState("");
+  const [pan, setPan] = useState("");
+  const [GSTIN, setGSTIN] = useState("");
+  const [category, setCategory] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+
+  const signUp = async () => {
+    const requestBody = {
+      username: username,
+      brand_name: brandName,
+      email_id: email,
+      password: password,
+      category: category,
+      pan_number: pan,
+      gst_number: GSTIN,
+      location: {
+        type: "Point",
+        coordinates: [lat, long],
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "https://aggregator-tool-production.onrender.com/api/brand/register",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Registration successful:", response.data);
+      return { flag: true, response: response.data };
+    } catch (error) {
+      console.error("Registration failed:", error.response ? error.response.data : error.message);
+      return { flag: false, response: error.response ? error.response.data : error.message };
+    }
+  };
   return (
     <>
       <div
@@ -67,13 +111,30 @@ const SignUpBrand = () => {
             </div>
           </span>
         </span>
-        {/* Your logo */}
       </a>
       <div className="h-screen w-full">
         <div className="h-screen w-full flex justify-center items-center">
           <div className="h-full w-full md:h-[70vh] md:w-[50vw] lg:h-[70vh] lg:w-[40vw] xl:w-[32vw]">
-            {!goToNext && <CreateAccount setGoToNext={setGoToNext} goToNext={goToNext}/>}
-            {goToNext && <ConnectBusiness /> }
+            {!goToNext && (
+              <CreateAccount
+                setGoToNext={setGoToNext}
+                goToNext={goToNext}
+                setEmail={setEmail}
+                setPassword={setPassword}
+                setUsername={setUsername}
+              />
+            )}
+            {goToNext && (
+              <ConnectBusiness
+                setBrandName={setBrandName}
+                setPan={setPan}
+                setGSTIN={setGSTIN}
+                setCategory={setCategory}
+                setLat={setLat}
+                setLong={setLong}
+                signUp={signUp}
+              />
+            )}
           </div>
         </div>
       </div>
