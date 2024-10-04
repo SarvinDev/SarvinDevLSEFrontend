@@ -292,7 +292,7 @@ const BrandDetail = ({
       const token = localStorage.getItem("token");
       axios
         .get(
-          `https://sarvindevbackend.onrender.com/api/brand/single_deal/${id}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand/single_deal/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -322,7 +322,7 @@ const BrandDetail = ({
       const token = localStorage.getItem("token");
       axios
         .post(
-          "https://sarvindevbackend.onrender.com/api/response",
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/response`,
           responsePayload,
           {
             headers: {

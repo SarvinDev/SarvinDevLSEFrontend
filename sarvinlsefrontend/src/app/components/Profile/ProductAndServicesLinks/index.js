@@ -41,7 +41,7 @@ function ProductAndServicesLinks({ setOpenProductAndServices, setLinks }) {
     }
     setLoading(true);
 
-    const url = "https://sarvindevbackend.onrender.com/api/user/add_reel";
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/add_reel`;
     const payload = {
       links: content,
     };

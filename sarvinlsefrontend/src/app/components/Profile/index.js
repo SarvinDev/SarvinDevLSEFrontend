@@ -19,7 +19,7 @@ function Profile() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get(`https://sarvindevbackend.onrender.com/api/user/get_user_details`, {
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get_user_details`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

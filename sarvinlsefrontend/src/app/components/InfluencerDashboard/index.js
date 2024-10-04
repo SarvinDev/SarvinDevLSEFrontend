@@ -62,7 +62,7 @@ const InfluencerDashboard = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `https://aggregator-tool-production.onrender.com/api/user/get_user_details`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get_user_details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

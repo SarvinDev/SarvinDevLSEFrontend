@@ -22,7 +22,7 @@ const BrandsDealCards = ({
 
     axios
       .get(
-        `https://sarvindevbackend.onrender.com/api/brand/deal?brand_id=${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand/deal?brand_id=${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

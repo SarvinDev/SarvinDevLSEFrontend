@@ -44,7 +44,7 @@ const SignIn = () => {
     try {
       // Make API request to login
       const response = await fetch(
-        "https://aggregator-tool-production.onrender.com/api/auth/login",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {

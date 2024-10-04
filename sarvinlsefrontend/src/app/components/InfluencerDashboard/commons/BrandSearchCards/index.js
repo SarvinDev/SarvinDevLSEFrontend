@@ -19,7 +19,7 @@ const BrandsDealCards = ({ text = null, isTabletOrMobile = false }) => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        "https://aggregator-tool-production.onrender.com/api/brand?lat=28.744612404406674&lon=77.19278941328129&radius=5",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand?lat=28.744612404406674&lon=77.19278941328129&radius=5`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

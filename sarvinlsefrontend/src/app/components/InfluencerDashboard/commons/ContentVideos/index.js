@@ -15,7 +15,7 @@ const index = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://sarvindevbackend.onrender.com/api/user/get_all_reels", {
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get_all_reels`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

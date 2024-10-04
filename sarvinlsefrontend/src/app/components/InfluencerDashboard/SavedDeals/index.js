@@ -22,7 +22,7 @@ const SavedDeals = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        "https://aggregator-tool-production.onrender.com/api/user/get_saved_deal",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get_saved_deal`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

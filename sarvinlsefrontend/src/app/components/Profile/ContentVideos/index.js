@@ -48,7 +48,7 @@ const Index = ({ links, setLinks, content = [] }) => {
     setLoading(true);
     const token = localStorage.getItem("token");
     axios
-      .delete("https://sarvindevbackend.onrender.com/api/user/delete_reel", {
+      .delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete_reel`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

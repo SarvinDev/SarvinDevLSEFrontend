@@ -23,7 +23,7 @@ const BrandDetail = ({
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     axios
-      .get(`https://sarvindevbackend.onrender.com/api/brand/single_deal/${id}`)
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brand/single_deal/${id}`)
       .then((response) => {
         setBranddealsdetails(response.data?.data);
 

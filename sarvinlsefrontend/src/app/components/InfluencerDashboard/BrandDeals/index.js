@@ -320,7 +320,7 @@ const BrandDeals = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        "https://sarvindevbackend.onrender.com/api/brand/deal?lat=28.744612404406674&lon=77.19278941328129&radius=5",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand/deal?lat=28.744612404406674&lon=77.19278941328129&radius=5`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
