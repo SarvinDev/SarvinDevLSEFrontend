@@ -1,16 +1,36 @@
 "use client";
 import { useState } from "react";
+import BrandLocationModal from "../BrandLocationModal/index";
+import Toast from "../../commons/toast/index";
+import { useRouter } from "next/navigation";
 
-const ConnectBusiness = () => {
+const ConnectBusiness = ({ setBrandName, setPan, setGSTIN, setCategory, setLat, setLong, signUp }) => {
+  const router = useRouter();
   const [verifyBusiness, setVerifyBusiness] = useState(false);
+  const [verifyBusinessError, setVerifyBusinessError] = useState(false);
   const [progressWidth, setProgressWidth] = useState("70%");
   const [progressText, setProgressText] = useState("Just a few more steps");
+  const [openModal, setOpenModal] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [successToastMessage, setSuccessToastMessage] = useState("");
+  const [errorText, setErrorText] = useState("You encountered some error while registering the brand. Try Again!.");
 
   const handleContinue = (e) => {
     e.preventDefault();
     setProgressText("almost there :)");
     setProgressWidth("100%");
-    setVerifyBusiness(true);
+    setOpenModal(true);
+  };
+
+  const handleSubmit = (flag, response) => {
+    if (flag) {
+      setVerifyBusiness(true);
+      setShowSuccessToast(true);
+      setSuccessToastMessage(response.message);
+    } else {
+      setVerifyBusinessError(true);
+      setErrorText(response.error[0].message || response.error);
+    }
   };
 
   return (
@@ -31,7 +51,9 @@ const ConnectBusiness = () => {
               ></div>
             </div>
           </div>
-          {!verifyBusiness && (
+
+          {/* Form section */}
+          {!verifyBusiness && !verifyBusinessError && (
             <form className="space-y-20" onSubmit={handleContinue}>
               <div className="space-y-6">
                 <div>
@@ -45,6 +67,7 @@ const ConnectBusiness = () => {
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Enter brand’s name"
                     autoComplete="organization"
+                    onChange={(e) => setBrandName(e.target.value)}
                     required
                   />
                 </div>
@@ -59,6 +82,7 @@ const ConnectBusiness = () => {
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Enter PAN number"
                     autoComplete="off"
+                    onChange={(e) => setPan(e.target.value)}
                     required
                   />
                 </div>
@@ -73,6 +97,7 @@ const ConnectBusiness = () => {
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Enter your company’s GSTIN number"
                     autoComplete="off"
+                    onChange={(e) => setGSTIN(e.target.value)}
                     required
                   />
                 </div>
@@ -87,7 +112,9 @@ const ConnectBusiness = () => {
               </div>
             </form>
           )}
-          {verifyBusiness && (
+
+          {/* Success Section */}
+          {verifyBusiness && !verifyBusinessError && (
             <div className="space-y-24 w-full">
               <div className="w-full">
                 <div className="w-full flex justify-center items-center h-40">
@@ -117,10 +144,67 @@ const ConnectBusiness = () => {
                 </div>
               </div>
               <div className="px-10">
-                <button className="w-full flex justify-center py-3 px-4 border border-transparent rounded-[4px] shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-[#fc8545] transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                <button
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-[4px] shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-[#fc8545] transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                  onClick={() => router.push("/dashboard")}
+                >
                   Continue
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* Error Section */}
+          {verifyBusinessError && (
+            <div className="space-y-24 w-full">
+              <div className="w-full">
+                <div className="w-full flex justify-center items-center h-40">
+                  <div className="h-24 w-24 rounded-full border-8 border-red-600 flex justify-center items-center animate-checkmark">
+                    <svg
+                      className="w-16 h-16 text-red-600"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M6 6l12 12M18 6l-12 12"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-center tracking-tighter">{errorText}</p>
+                </div>
+              </div>
+              <div className="px-10">
+                <button
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-[4px] shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-[#fc8545] transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                  onClick={() => router.push("/dashboard")}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Modal Section */}
+          <BrandLocationModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            handleSubmit={handleSubmit}
+            setCategory={setCategory}
+            setLat={setLat}
+            setLong={setLong}
+            signUp={signUp}
+          />
+          {showSuccessToast && (
+            <div className="fixed bottom-10 right-10">
+              <Toast text={successToastMessage} type={1} setShowToast={setShowSuccessToast} />
             </div>
           )}
         </div>

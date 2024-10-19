@@ -1,4 +1,4 @@
-const CreateAccount = ({goToNext, setGoToNext }) => {
+const CreateAccount = ({goToNext, setGoToNext, setEmail, setPassword, setUsername }) => {
   const handleSubmit = () => {
     setGoToNext(!goToNext)
   };
@@ -22,6 +22,7 @@ const CreateAccount = ({goToNext, setGoToNext }) => {
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="name@example.com"
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -34,6 +35,7 @@ const CreateAccount = ({goToNext, setGoToNext }) => {
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="Set your password (at least 8 characters)"
                   required
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -46,6 +48,7 @@ const CreateAccount = ({goToNext, setGoToNext }) => {
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="Enter your name"
                   required
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
