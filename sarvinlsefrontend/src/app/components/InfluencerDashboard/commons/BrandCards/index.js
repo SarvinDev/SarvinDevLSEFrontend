@@ -33,10 +33,12 @@ export default function BrandCard({
 
   type = 1,
   isSaved = false,
+  is_followed = false,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isSave, setIsSave] = useState(isSaved);
+  const [isFollowed, setIsFollowed] = useState(is_followed);
   const SaveDealFunction = () => {
     const token = localStorage.getItem("token");
     console.log(token);
@@ -65,6 +67,59 @@ export default function BrandCard({
         }
       });
   };
+
+  const FollowBrand = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/follow_brand`,
+        { brand_id: brandId }, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setIsFollowed(true);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response from server:", error.response.data);
+          console.error("Status:", error.response.status);
+        } else if (error.request) {
+          console.error("No response received:", error.request);
+        } else {
+          console.error("Axios request error:", error.message);
+        }
+      });
+  };
+  const UnfollowBrand = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/unfollow_brand`,
+        {
+          data: { brand_id: brandId },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+      .then(() => {
+        setIsFollowed(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response from server:", error.response.data);
+          console.error("Status:", error.response.status);
+        } else if (error.request) {
+          console.error("No response received:", error.request);
+        } else {
+          console.error("Axios request error:", error.message);
+        }
+      });
+  };
+  
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -240,6 +295,14 @@ export default function BrandCard({
               View Details
             </button>
           </Link>
+          <div className="text-gray-400 text-md mt-2 mr-2 w-full">
+            <button
+              class="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() => isFollowed?UnfollowBrand():FollowBrand()}
+            >
+              {isFollowed ? "UnFollow" : "Follow"}
+            </button>
+          </div>
         </div>
       </div>
     );

@@ -36,7 +36,7 @@ const BrandsDealCards = ({
     const token = localStorage.getItem("token");
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand?lat=28.744612404406674&lon=77.19278941328129&radius=5`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/brand`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -231,6 +231,7 @@ const BrandsDealCards = ({
               img={brand.image_link}
               cardType="Brands"
               deal_count={brand.deal_count}
+              is_followed={brand.is_followed}
               category={brand.category}
               cost_avg={brand.cost_avg}
             />

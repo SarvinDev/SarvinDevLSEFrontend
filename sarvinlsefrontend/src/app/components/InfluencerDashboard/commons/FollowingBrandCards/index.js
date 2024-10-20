@@ -201,12 +201,13 @@ const FollowingBrandCards = ({ text = null, isTabletOrMobile = false }) => {
         >
           {brands.map((brand) => (
             <BrandCard
-              brandId={brand._id} // Ensure the key is unique, adjust according to your data
+              brandId={brand.brand_id} // Ensure the key is unique, adjust according to your data
               heading={brand.brand_name}
               subheading={brand.description}
               img={brand.image_link} // Ensure this field matches your API response
               cardType="Brands"
               deal_count={brand.deal_count}
+              is_followed={brand.is_followed}
             />
           ))}
         </div>
